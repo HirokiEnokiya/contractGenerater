@@ -1,5 +1,5 @@
-function sendMail(email,url) {
-  const recipient = email;
+function sendMailUrl(sender_email,url) {
+  const recipient = sender_email;
   const subject = '雇用契約書が作成されました';
   let body ='';
   body += 'gooleフォームに入力された内容から雇用契約書が作成されました。\n'

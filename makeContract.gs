@@ -1,6 +1,6 @@
-function generateContact(e) {
+function makeContract(e) {
   // 送信者のメールアドレスを取得
-  const email = e.response.getRespondentEmail();
+  const sender_email = e.response.getRespondentEmail();
 
 // 送信時の日付を取得
   let today = new Date();
@@ -32,16 +32,16 @@ function generateContact(e) {
 
 
 //テンプレートの複製
-  let src_doc_id= "1N86QkxENyJrlzqph6bIjx3uNkIHTyvZGpLiMMCAeAXE";//テンプレートのid
-  let des_drive_id = refDrive(email);//pdf保存先のid
+  const src_doc_id= "1N86QkxENyJrlzqph6bIjx3uNkIHTyvZGpLiMMCAeAXE";//テンプレートのid
+  const des_folder_id = getHisFolderId(sender_email);//pdf保存先のid
 
-  let src_doc = DriveApp.getFileById(src_doc_id);
-  let des_drive = DriveApp.getFolderById(des_drive_id);
+  const src_doc = DriveApp.getFileById(src_doc_id);
+  const des_folder = DriveApp.getFolderById(des_folder_id);
   let fileName = `雇用契約書_${answers.name}_${today}`;
-  let duplicateDocument   = src_doc.makeCopy(fileName, des_drive);
+  let duplicateDocument   = src_doc.makeCopy(fileName, des_folder);
   let duplicateDocumentId = duplicateDocument.getId();
-  let des_doc = DocumentApp.openById(duplicateDocumentId);
-  let des_doc_id = des_doc.getId();
+  const des_doc = DocumentApp.openById(duplicateDocumentId);
+  const des_doc_id = des_doc.getId();
 
 
   console.log("テンプレートを複製");
@@ -78,8 +78,8 @@ function generateContact(e) {
   let blob = UrlFetchApp.fetch(url, options).getBlob().setName(fileName + '.pdf');
 
   //PDFの保存先フォルダー
-  let folder = DriveApp.getFolderById(des_drive_id);
-  folder.addEditor(email);
+  let folder = DriveApp.getFolderById(des_folder_id);
+  folder.addEditor(sender_email);
 
   //PDFを指定したフォルダに保存する
   folder.createFile(blob);
@@ -93,7 +93,7 @@ function generateContact(e) {
   console.log("複製したファイルを削除");
 
   // 回答者にドライブのURLを送信
-  sendMail(email,des_drive.getUrl());
+  sendMailUrl(sender_email,des_folder.getUrl());
 
 
 }
