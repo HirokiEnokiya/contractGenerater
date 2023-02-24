@@ -1,5 +1,5 @@
 function makeContract(e) {
-  // 送信者のメールアドレスを取得
+// 送信者のメールアドレスを取得
   const sender_email = e.response.getRespondentEmail();
 
 // 送信時の日付を取得
@@ -85,14 +85,14 @@ function makeContract(e) {
   folder.createFile(blob);
 
 
-  // 複製したファイルを削除
+// 複製したファイルを削除
   let fileData = DriveApp.getFileById(des_doc_id);
   //IDから取得したファイルをゴミ箱のフラグをtrueにする
   fileData.setTrashed(true);
 
   console.log("複製したファイルを削除");
 
-  // 回答者にドライブのURLを送信
+// 回答者にドライブのURLを送信
   sendMailUrl(sender_email,des_folder.getUrl());
 
 

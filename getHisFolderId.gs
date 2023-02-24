@@ -15,10 +15,5 @@ function getHisFolderId(sender_email) {
     script_properties.setProperty(sender_email,desDriveId);
     }
 
-    // script_properties.deleteAllProperties();
-    // console.log(desDriveId);
-    // const properties = script_properties.getProperties();
-    // for(const key in properties) {console.log(key,properties[key])};
-
     return desDriveId;
 }
